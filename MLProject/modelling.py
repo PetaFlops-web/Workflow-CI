@@ -3,8 +3,6 @@ import mlflow
 import mlflow.sklearn
 from sklearn.ensemble import RandomForestClassifier
 
-mlflow.set_tracking_uri("http://127.0.0.1:5000")
-
 train_df = pd.read_csv('dataset_preprocessing/train_clean.csv')
 X_train = train_df.drop(columns=['Reached.on.Time_Y.N'])
 y_train = train_df['Reached.on.Time_Y.N']
