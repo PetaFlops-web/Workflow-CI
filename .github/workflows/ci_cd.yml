@@ -38,6 +38,10 @@ jobs:
                   username: ${{ secrets.DOCKERHUB_USERNAME }}
                   password: ${{ secrets.DOCKERHUB_TOKEN }}
 
+            - name: Bypass Conda TOS
+              run: |
+                  sed -i 's/- defaults/- conda-forge/g' MLProject/saved_model/conda.yaml
+
             - name: Build and Push Docker Image
               run: |
                   mlflow models build-docker -m MLProject/saved_model -n ${{ secrets.DOCKERHUB_USERNAME }}/shipping-prediction:latest --env-manager=conda
