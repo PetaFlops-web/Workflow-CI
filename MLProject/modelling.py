@@ -11,11 +11,9 @@ test_df = pd.read_csv('dataset_preprocessing/test_clean.csv')
 X_test = test_df.drop(columns=['Reached.on.Time_Y.N'])
 y_test = test_df['Reached.on.Time_Y.N']
 
-mlflow.set_experiment("E-Commerce Shipping Late Prediction")
-
 mlflow.sklearn.autolog()
 
-with mlflow.start_run(run_name="modelling"):
+with mlflow.start_run():
 
     n_estimators = 100
     max_depth = 10
