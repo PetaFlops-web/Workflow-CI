@@ -40,8 +40,6 @@ jobs:
 
             - name: Build and Push Docker Image
               run: |
-                  # Build image menggunakan mlflow build-docker
-                  mlflow models build-docker -m MLProject/saved_model -n ${{ secrets.DOCKERHUB_USERNAME }}/shipping-prediction:latest
+                  mlflow models build-docker -m MLProject/saved_model -n ${{ secrets.DOCKERHUB_USERNAME }}/shipping-prediction:latest --env-manager=conda
 
-                  # Push image ke Docker Hub
                   docker push ${{ secrets.DOCKERHUB_USERNAME }}/shipping-prediction:latest
