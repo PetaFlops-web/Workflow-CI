@@ -34,13 +34,15 @@ jobs:
                   echo "RUN_ID=$RUN_ID" >> $GITHUB_ENV
                   echo "Latest run_id: $RUN_ID"
 
+            # Step "Bypass Anaconda TOS" DIHAPUS karena tidak dipakai lagi
+
             - name: Build Docker Model
               run: |
                   cd MLProject
                   mlflow models build-docker \
-                  --model-uri "runs:/$RUN_ID/model" \
-                  --name ${{ secrets.DOCKERHUB_USERNAME }}/shipping-prediction:latest \
-                  --env-manager=pip
+                    --model-uri "runs:/$RUN_ID/model" \
+                    --name ${{ secrets.DOCKERHUB_USERNAME }}/shipping-prediction:latest \
+                    --env-manager=virtualenv
 
             - name: Log in to Docker Hub
               uses: docker/login-action@v2
@@ -48,7 +50,6 @@ jobs:
                   username: ${{ secrets.DOCKERHUB_USERNAME }}
                   password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-            # 6. Push ke Docker Hub
             - name: Push Docker Image
               run: |
                   docker push ${{ secrets.DOCKERHUB_USERNAME }}/shipping-prediction:latest
