@@ -22,21 +22,4 @@ with mlflow.start_run():
     model = RandomForestClassifier(n_estimators=n_estimators, max_depth=max_depth, min_samples_split=min_samples_split, random_state=42)
 
     model.fit(X_train, y_train)
-
-    custom_env = {
-        "name": "shipping-env",
-        "channels": ["conda-forge"], # Paksa hanya menggunakan channel gratis
-        "dependencies": [
-            "python=3.12.7",
-            "pip",
-            "scikit-learn",
-            "pandas",
-            {
-                "pip": [
-                    "mlflow==2.19.0"
-                ]
-            }
-        ]
-    }
-    
     mlflow.sklearn.save_model(model, "saved_model")
